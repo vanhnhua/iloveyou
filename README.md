@@ -53,12 +53,14 @@
         recommend: recommend
       };
 
-      emailjs.send("gmail", "template_eftue5u", params)
-        .then(function(response) {
-          alert("Gửi thành công! Cảm ơn bạn đã tham gia.");
-        }, function(error) {
-          alert("Lỗi khi gửi: " + error.text);
-        });
+       emailjs.send("gmail", "template_eftue5u", params)
+    .then(function(response) {
+      alert("Gửi thành công! Cảm ơn bạn đã tham gia.");
+      nextSection('section3', 'section4'); // Chuyển trang sau khi gửi thành công
+    }, function(error) {
+      alert("Lỗi khi gửi: " + error.text);
+    });
+
     }
   </script>
 </head>
@@ -109,13 +111,21 @@
   <div id="section3" class="section">
     <h2>Trang 3:hè hè </h2>
     <form onsubmit="sendSurvey(event)">
+
+    <form onsubmit="event.preventDefault(); nextSection('section3', 'section4');">
       <label>Bạn có sẵn sàng iu ảnh ta mõi mõi hăm hihi ?</label><br>
       <input type="radio" name="recommend" value="Có"> Có<br>
       <input type="radio" name="recommend" value="Không"> Không<br><br>
 
-      <button type="submit">Gửi ý kiến</button>
+     <button type="submit">Gửi ý kiến</button>
     </form>
   </div>
+  <!-- 💌 Trang 4 -->
+<div id="section4" class="section">
+  <h2>Trang 4: Thông điệp cuối</h2>
+  <p style="font-size: 20px; color: darkred;">Anh đợi em ở trên tầng cao nhất dãy lớp em nhaaa!</p>
+  
+</div>
 
 </body>
 </html>
