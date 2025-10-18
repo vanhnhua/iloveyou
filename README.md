@@ -112,7 +112,7 @@
     <h2>Trang 3:hè hè </h2>
     <form onsubmit="sendSurvey(event)">
 
-    <form onsubmit="event.preventDefault(); nextSection('section3', 'section4');">
+    
       <label>Bạn có sẵn sàng iu ảnh ta mõi mõi hăm hihi ?</label><br>
       <input type="radio" name="recommend" value="Có"> Có<br>
       <input type="radio" name="recommend" value="Không"> Không<br><br>
