@@ -1,1 +1,121 @@
-# iloveyou
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thăm dò ý kiến</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    .section { display: none; margin-top: 30px; }
+    input, textarea { width: 300px; padding: 8px; margin-top: 5px; }
+    button { padding: 10px 20px; margin-top: 15px; }
+  </style>
+  <script>
+    // Khởi tạo EmailJS
+    (function() {
+      emailjs.init("SRrNYjIH6XFrU-V-H"); // Thay bằng User ID từ EmailJS
+    })();
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === "LUCHUYENANH" && password === "24052010") {
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("section1").style.display = "block";
+      } else {
+        alert("Sai tài khoản hoặc mật khẩu!");
+      }
+    }
+
+    function nextSection(current, next) {
+      document.getElementById(current).style.display = "none";
+      document.getElementById(next).style.display = "block";
+    }
+
+    function sendSurvey(event) {
+      event.preventDefault();
+
+      const opinion = document.querySelector('input[name="opinion"]:checked')?.value;
+      const feedback = document.getElementById("feedback").value;
+      const serviceQuality = document.querySelector('input[name="quality"]:checked')?.value;
+      const recommend = document.querySelector('input[name="recommend"]:checked')?.value;
+
+      if (!opinion || !serviceQuality || !recommend) {
+        alert("Vui lòng hoàn thành tất cả các câu hỏi!");
+        return;
+      }
+
+      const params = {
+        opinion: opinion,
+        feedback: feedback,
+        quality: serviceQuality,
+        recommend: recommend
+      };
+
+      emailjs.send("gmail", "template_eftue5u", params)
+        .then(function(response) {
+          alert("Gửi thành công! Cảm ơn bạn đã tham gia.");
+        }, function(error) {
+          alert("Lỗi khi gửi: " + error.text);
+        });
+    }
+  </script>
+</head>
+<body>
+
+  <!-- 🔐 Trang đăng nhập -->
+  <div id="loginSection">
+    <h2>Đăng nhập để tham gia thăm dò</h2>
+    <label>Tài khoản:</label><br>
+    <input type="text" id="username"><br><br>
+
+    <label>Mật khẩu:</label><br>
+    <input type="password" id="password"><br><br>
+
+    <button onclick="login()">Đăng nhập</button>
+  </div>
+
+  <!-- 🗳️ Trang 1 -->
+  <div id="section1" class="section">
+    <h2>Trang 1: Đánh giá tổng thể</h2>
+    <form onsubmit="event.preventDefault(); nextSection('section1', 'section2');">
+      <label>Bạn có hài lòng với người yêu hiện tại của bạn không?</label><br>
+      <input type="radio" name="opinion" value="Hài lòng"> Hài lòng<br>
+      <input type="radio" name="opinion" value="Không hài lòng"> Không hài lòng<br><br>
+
+      <label>Ý kiến đóng góp:</label><br>
+      <textarea id="feedback" rows="4" placeholder="Nhập ý kiến của bạn..."></textarea><br><br>
+
+      <button type="submit">Tiếp tục</button>
+    </form>
+  </div>
+
+  <!-- 📋 Trang 2 -->
+  <div id="section2" class="section">
+    <h2>Trang 2: :)</h2>
+    <form onsubmit="event.preventDefault(); nextSection('section2', 'section3');">
+      <label>độ tâm lý của ảnh ó?</label><br>
+      <input type="radio" name="quality" value="Xuất sắc"> Xuất sắc<br>
+      <input type="radio" name="quality" value="Tốt"> Tốt<br>
+      <input type="radio" name="quality" value="Trung bình"> Trung bình<br>
+      <input type="radio" name="quality" value="Kém"> Kém<br><br>
+
+      <button type="submit">Tiếp tục</button>
+    </form>
+  </div>
+
+  <!-- 📨 Trang 3 -->
+  <div id="section3" class="section">
+    <h2>Trang 3:hè hè </h2>
+    <form onsubmit="sendSurvey(event)">
+      <label>Bạn có sẵn sàng iu ảnh ta mõi mõi hăm hihi ?</label><br>
+      <input type="radio" name="recommend" value="Có"> Có<br>
+      <input type="radio" name="recommend" value="Không"> Không<br><br>
+
+      <button type="submit">Gửi ý kiến</button>
+    </form>
+  </div>
+
+</body>
+</html>
